@@ -17,10 +17,12 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env.local')) 
+print(os.getenv('ALLOWED_HOSTS'))
+
+
 
 DEBUG = os.getenv('DEBUG') == 'True'
 SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')  # comma-separated in production
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,6 +34,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')  # comma-separated in production
+ALLOWED_HOSTS = [host.strip().strip("'").strip('"') for host in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')]
+
+print(ALLOWED_HOSTS)
 # ALLOWED_HOSTS = ['https://myproduct.onrender.com']  # Replace with actual URL
 
 
