@@ -16,7 +16,9 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(os.path.join(BASE_DIR, '.env.local')) 
+# Load .env.local **only if it exists and not in production**
+if os.getenv('RENDER', None) is None:  # Render sets RENDER environment variable automatically
+    load_dotenv(os.path.join(BASE_DIR, '.env.local'))
 print(os.getenv('ALLOWED_HOSTS'))
 
 
